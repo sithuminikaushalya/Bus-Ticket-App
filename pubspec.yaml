@@ -1,0 +1,19 @@
+name: easy_journey
+description: "Your project description"
+version: 1.0.0
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # ... other dependencies
+
+# ... other configurations
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/home.png
+    - assets/second.png
