@@ -1,5 +1,7 @@
 # bus_ticket_app
 
+Mobile App for Bus tracking and Ticket and Seat booking
+
 A new Flutter project.
 
 ## Getting Started
