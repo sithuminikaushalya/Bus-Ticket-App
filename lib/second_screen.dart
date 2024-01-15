@@ -1,5 +1,7 @@
-// second_screen.dart
 import 'package:flutter/material.dart';
+import 'destination_screen.dart';
+import 'settings_screen.dart';
+import 'map_screen.dart';
 
 class SecondScreen extends StatefulWidget {
   @override
@@ -13,16 +15,12 @@ class _SecondScreenState extends State<SecondScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Bus Ticket Booking',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 24.0,
-            color: Color(0xFF51259B),
-          ),
-        ),
+        title: null, // Set title to null to remove the text
         centerTitle: true,
         backgroundColor: Color.fromARGB(255, 230, 220, 235),
+        actions: [
+          // Remove the IconButton widget
+        ],
       ),
       body: _buildBody(),
       bottomNavigationBar: _buildCustomBottomNavigationBar(),
@@ -46,10 +44,18 @@ class _SecondScreenState extends State<SecondScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Text(
+            'Bus Ticket Booking',
+            style: TextStyle(
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF51259B),
+            ),
+          ),
+          SizedBox(height: 30.0), // Add gap between heading and image
           Expanded(
             child: Container(
               width: double.infinity,
-              height: 100.0, // Adjust the height as needed
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/second.png'),
@@ -58,10 +64,14 @@ class _SecondScreenState extends State<SecondScreen> {
               ),
             ),
           ),
+          SizedBox(height: 40.0), // Add gap between image and button
           ElevatedButton(
             onPressed: () {
-              // Implement the logic for ticket booking
-              // You might navigate to a new screen for ticket booking
+              print("Button pressed");
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DestinationScreen()),
+              );
             },
             style: ElevatedButton.styleFrom(
               primary: Color(0xFF51259B),
@@ -77,6 +87,7 @@ class _SecondScreenState extends State<SecondScreen> {
             ),
             child: Text("Book Ticket"),
           ),
+          SizedBox(height: 30.0), // Add gap between button and bottom bar
         ],
       ),
     );
@@ -93,20 +104,26 @@ class _SecondScreenState extends State<SecondScreen> {
           if (index == 0) {
             // Navigate to the second screen (self)
           } else if (index == 1) {
-            // Navigate to another screen if needed
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MapScreen()),
+            );
           } else if (index == 2) {
-            // Navigate to yet another screen if needed
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SettingsScreen()),
+            );
           }
         });
       },
       items: [
         BottomNavigationBarItem(
-          icon: Icon(Icons.map), // Custom icon for the second screen
-          label: 'Map',
-        ),
-        BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.map),
+          label: 'Map',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.settings),
