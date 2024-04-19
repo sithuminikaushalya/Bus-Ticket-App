@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "727786959765",
+    "firebase_url": "https://busticketbookingapporg-default-rtdb.firebaseio.com",
+    "project_id": "busticketbookingapporg",
+    "storage_bucket": "busticketbookingapporg.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:727786959765:android:accac9acc9b0ea7e617c9c",
+        "android_client_info": {
+          "package_name": "com.example.bus_ticket_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-xsGK7tO4RnJ50HiBqJtQlcTA5cQOCts"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
