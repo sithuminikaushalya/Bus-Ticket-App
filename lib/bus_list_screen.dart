@@ -48,16 +48,19 @@ class _BusListScreenState extends State<BusListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Bus List'),
       ),
       body: Column(
         children: [
-          // Image above the bus list
           Image.asset(
             'assets/list.jpg',
-            height: 200, // Adjust the height as needed
+            width: screenWidth * 0.58,
+            height: screenHeight * 0.25,
             fit: BoxFit.cover,
           ),
           Expanded(
@@ -95,7 +98,10 @@ class _BusListScreenState extends State<BusListScreen> {
               228,
               240,
             ), // Set your desired background color
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.symmetric(
+              horizontal: screenWidth * 0.05,
+              vertical: screenHeight * 0.02,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -142,11 +148,13 @@ class BusCard extends StatefulWidget {
 class _BusCardState extends State<BusCard> {
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Card(
-      margin: EdgeInsets.all(8.0),
+      margin: EdgeInsets.all(screenWidth * 0.03),
       color: widget.isSelected ? Colors.yellow : null,
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(screenWidth * 0.04),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -154,10 +162,11 @@ class _BusCardState extends State<BusCard> {
               'Bus Number: ${widget.bus.busNumber}',
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8.0),
+            SizedBox(height: screenWidth * 0.01),
             Text('Departure Time: ${widget.bus.departureTime}'),
             Text('Arrival Time: ${widget.bus.arrivalTime}'),
             Text('Price: ${widget.bus.price}'),
+            SizedBox(height: screenWidth * 0.01),
             ElevatedButton(
               onPressed: widget.onTapBookNow,
               child: Text('Book Now'),

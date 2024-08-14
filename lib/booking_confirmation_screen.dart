@@ -17,17 +17,22 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Get screen size
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
         title: Text('Booking Confirmation'),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          SizedBox(height: 16),
+          SizedBox(height: screenHeight * 0.02),
           Container(
             width: double.infinity,
-            height: 200,
+            height: screenHeight * 0.25,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/success.png'),
@@ -35,17 +40,17 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
               ),
             ),
           ),
-          SizedBox(height: 16), // Add a gap between image and text
+          SizedBox(height: screenHeight * 0.02),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(screenWidth * 0.04),
             child: Center(
               child: Text(
                 'You have booked your bus seat with JourneyEase.',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: screenWidth * 0.05,
                   fontWeight: FontWeight.bold,
                 ),
-                textAlign: TextAlign.center, // Center the text
+                textAlign: TextAlign.center,
               ),
             ),
           ),
@@ -54,16 +59,25 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Your booking has been confirmed!'),
-                  SizedBox(height: 20),
+                  Text(
+                    'Your booking has been confirmed!',
+                    style: TextStyle(
+                      fontSize: screenWidth * 0.045,
+                    ),
+                  ),
+                  SizedBox(height: screenHeight * 0.03),
                   ElevatedButton(
                     onPressed: () {
-                      // Show an alert when the Confirm Payment button is pressed
                       _showPaymentConfirmationAlert(context);
                     },
-                    child: Text('Confirm Payment'),
+                    child: Text(
+                      'Confirm Payment',
+                      style: TextStyle(
+                        fontSize: screenWidth * 0.04,
+                      ),
+                    ),
                   ),
-                  SizedBox(height: 20), // Add a gap between buttons
+                  SizedBox(height: screenHeight * 0.02),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(
@@ -71,7 +85,12 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
                         MaterialPageRoute(builder: (context) => SecondScreen()),
                       );
                     },
-                    child: Text('Go to Home Screen'),
+                    child: Text(
+                      'Go to Home Screen',
+                      style: TextStyle(
+                        fontSize: screenWidth * 0.04,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -82,7 +101,6 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
     );
   }
 
-  // Function to show the payment confirmation alert
   void _showPaymentConfirmationAlert(BuildContext context) {
     showDialog(
       context: context,
@@ -94,16 +112,15 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Close the alert
+                Navigator.pop(context);
               },
               child: Text('Cancel'),
             ),
             TextButton(
               onPressed: () {
-                // Call the onConfirmPayment callback to handle payment confirmation logic
                 widget.onConfirmPayment();
-                Navigator.pop(context); // Close the alert
-                _showSuccessSnackBar(context); // Show success message
+                Navigator.pop(context);
+                _showSuccessSnackBar(context);
               },
               child: Text('Confirm'),
             ),
@@ -113,7 +130,6 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
     );
   }
 
-  // Function to show the success SnackBar
   void _showSuccessSnackBar(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -124,7 +140,6 @@ class _BookingConfirmationScreenState extends State<BookingConfirmationScreen> {
           label: 'Dismiss',
           onPressed: () {
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
-            // Close the AlertDialog
             Navigator.of(context).pop();
           },
         ),

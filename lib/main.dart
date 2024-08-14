@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login_signup_screen.dart'; // Import the LoginSignupScreen class
+import 'login_signup_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,9 +19,11 @@ class MyApp extends StatelessWidget {
 class FirstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
-        // Remove the title from the AppBar
         centerTitle: true,
         backgroundColor: Color.fromARGB(255, 230, 220, 235),
       ),
@@ -41,33 +43,30 @@ class FirstScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-                height: 20.0), // Add a gap between the status bar and the text
+            SizedBox(height: screenHeight * 0.02),
             Text(
               'JOURNEYEASE',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 24.0,
+                fontSize: screenWidth * 0.08,
                 color: Color(0xFF51259B),
               ),
             ),
-            SizedBox(height: 40.0), // Add a gap between the text and the image
+            SizedBox(height: screenHeight * 0.05),
             Expanded(
               child: Container(
-                width: double.infinity,
-                height: 50.0, // Adjust the height as needed
+                width: screenWidth * 0.9,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/home.png'),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 40.0),
+            SizedBox(height: screenHeight * 0.05),
             ElevatedButton(
               onPressed: () {
-                // Navigate to the LoginSignupScreen
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => LoginSignupScreen()),
@@ -76,11 +75,14 @@ class FirstScreen extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFF51259B),
                 textStyle: TextStyle(
-                  fontSize: 18.0,
+                  fontSize: screenWidth * 0.045,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
-                padding: EdgeInsets.symmetric(vertical: 13.0, horizontal: 30.0),
+                padding: EdgeInsets.symmetric(
+                  vertical: screenHeight * 0.02,
+                  horizontal: screenWidth * 0.15,
+                ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
                 ),
@@ -92,7 +94,7 @@ class FirstScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 60.0),
+            SizedBox(height: screenHeight * 0.08),
           ],
         ),
       ),

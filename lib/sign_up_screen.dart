@@ -5,74 +5,85 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 40),
-          height: MediaQuery.of(context).size.height - 50,
-          width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      appBar: AppBar(
+        centerTitle: true,
+      ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return Column(
             children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Text(
-                    "Sign up",
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
+              SizedBox(height: constraints.maxHeight * 0.05),
+              Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      "Sign up",
+                      style: TextStyle(
+                        fontSize: constraints.maxWidth * 0.08,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    "Create an account, It's free ",
-                    style: TextStyle(fontSize: 15, color: Colors.grey[700]),
-                  )
-                ],
+                    SizedBox(height: constraints.maxHeight * 0.02),
+                    Text(
+                      "Create an account, It's free",
+                      style: TextStyle(
+                        fontSize: constraints.maxWidth * 0.04,
+                        color: Colors.grey[700],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              Column(
-                children: <Widget>[
-                  inputFile(label: "Phone Number"),
-                  inputFile(label: "Email"),
-                  inputFile(label: "Password", obscureText: true),
-                  inputFile(label: "Confirm Password", obscureText: true),
-                ],
+              SizedBox(height: constraints.maxHeight * 0.03),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: constraints.maxWidth * 0.05),
+                child: Column(
+                  children: <Widget>[
+                    inputFile(label: "Phone Number"),
+                    SizedBox(height: constraints.maxHeight * 0.02),
+                    inputFile(label: "Email"),
+                    SizedBox(height: constraints.maxHeight * 0.02),
+                    inputFile(label: "Password", obscureText: true),
+                    SizedBox(height: constraints.maxHeight * 0.02),
+                    inputFile(label: "Confirm Password", obscureText: true),
+                  ],
+                ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: constraints.maxHeight * 0.02),
               Container(
-                // Updated: Removed the box decoration
+                padding: EdgeInsets.symmetric(
+                    horizontal: constraints.maxWidth * 0.05),
                 child: MaterialButton(
                   minWidth: double.infinity,
-                  height: 40,
+                  height: constraints.maxHeight * 0.06,
                   onPressed: () {
-                    // Handle sign-up logic here
                     _showSignUpSuccessDialog(context);
                   },
                   color: Color(0xff0095FF),
                   elevation: 0,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
+                    borderRadius:
+                        BorderRadius.circular(constraints.maxWidth * 0.05),
                   ),
                   child: Text(
                     "Sign up",
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: 16,
+                      fontSize: constraints.maxWidth * 0.04,
                       color: Colors.white,
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: constraints.maxHeight * 0.03),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text("Already have an account?"),
                   InkWell(
                     onTap: () {
-                      // Navigate to login screen
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => LoginScreen()),
@@ -82,16 +93,20 @@ class SignUpScreen extends StatelessWidget {
                       " Login",
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        fontSize: 18,
+                        fontSize: constraints.maxWidth * 0.05,
                       ),
                     ),
                   )
                 ],
               ),
-              SizedBox(height: 20), // Add a gap here
+              Expanded(
+                child: Container(
+                    // This container will take up the remaining space
+                    ),
+              ),
             ],
-          ),
-        ),
+          );
+        },
       ),
     );
   }
@@ -107,7 +122,6 @@ class SignUpScreen extends StatelessWidget {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
-                // Navigate to login screen
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => LoginScreen()),
@@ -123,7 +137,7 @@ class SignUpScreen extends StatelessWidget {
 }
 
 // Widget for text field
-Widget inputFile({label, obscureText = false}) {
+Widget inputFile({required String label, bool obscureText = false}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -135,9 +149,7 @@ Widget inputFile({label, obscureText = false}) {
           color: Colors.black87,
         ),
       ),
-      SizedBox(
-        height: 0,
-      ),
+      SizedBox(height: 5),
       TextField(
         obscureText: obscureText,
         decoration: InputDecoration(
@@ -150,7 +162,7 @@ Widget inputFile({label, obscureText = false}) {
           ),
         ),
       ),
-      SizedBox(height: 10),
+      SizedBox(height: 8),
     ],
   );
 }

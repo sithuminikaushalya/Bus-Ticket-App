@@ -16,99 +16,127 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final double avatarRadius =
+        screenWidth * 0.15; // Adjust avatar size based on screen width
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Account Information'),
       ),
       resizeToAvoidBottomInset: false,
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.symmetric(
+          horizontal: screenWidth * 0.05,
+          vertical: screenHeight * 0.02,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            GestureDetector(
-              onTap: () {
-                _pickImage();
-              },
-              child: CircleAvatar(
-                radius: 60,
-                backgroundColor: Colors.blue,
-                child: _image != null
-                    ? ClipOval(
-                        child: Image.file(
-                          _image!,
-                          width: 120,
-                          height: 120,
-                          fit: BoxFit.cover,
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  _pickImage();
+                },
+                child: CircleAvatar(
+                  radius: avatarRadius,
+                  backgroundColor: Colors.blue,
+                  child: _image != null
+                      ? ClipOval(
+                          child: Image.file(
+                            _image!,
+                            width: avatarRadius * 2,
+                            height: avatarRadius * 2,
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      : Icon(
+                          Icons.person,
+                          size: avatarRadius * 1.2,
+                          color: Colors.white,
                         ),
-                      )
-                    : Icon(
-                        Icons.person,
-                        size: 80,
-                        color: Colors.white,
-                      ),
+                ),
               ),
             ),
-            SizedBox(height: 20),
-            ListTile(
-              leading: Icon(Icons.person),
-              title: Text('Name'),
-              subtitle: Text(name),
-              onTap: () {
-                _showNameDialog();
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.location_on),
-              title: Text('Location'),
-              subtitle: Text(location),
-              onTap: () {
-                _showLocationDialog();
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.calendar_today),
-              title: Text('Date of Birth'),
-              subtitle: Text('January 1, 1990'),
-              onTap: () async {
-                DateTime? pickedDate = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime(1990, 1, 1),
-                  firstDate: DateTime(1900),
-                  lastDate: DateTime.now(),
-                );
+            SizedBox(height: screenHeight * 0.01),
+            Expanded(
+              child: ListView(
+                children: [
+                  ListTile(
+                    leading: Icon(Icons.person, size: screenWidth * 0.06),
+                    title: Text('Name',
+                        style: TextStyle(fontSize: screenWidth * 0.04)),
+                    subtitle: Text(name,
+                        style: TextStyle(fontSize: screenWidth * 0.03)),
+                    onTap: () {
+                      _showNameDialog();
+                    },
+                  ),
+                  Divider(),
+                  ListTile(
+                    leading: Icon(Icons.location_on, size: screenWidth * 0.06),
+                    title: Text('Location',
+                        style: TextStyle(fontSize: screenWidth * 0.04)),
+                    subtitle: Text(location,
+                        style: TextStyle(fontSize: screenWidth * 0.03)),
+                    onTap: () {
+                      _showLocationDialog();
+                    },
+                  ),
+                  Divider(),
+                  ListTile(
+                    leading:
+                        Icon(Icons.calendar_today, size: screenWidth * 0.06),
+                    title: Text('Date of Birth',
+                        style: TextStyle(fontSize: screenWidth * 0.04)),
+                    subtitle: Text('January 1, 1990',
+                        style: TextStyle(fontSize: screenWidth * 0.03)),
+                    onTap: () async {
+                      DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime(1990, 1, 1),
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime.now(),
+                      );
 
-                if (pickedDate != null && pickedDate != DateTime(1990, 1, 1)) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                          'Selected date: ${pickedDate.day}/${pickedDate.month}/${pickedDate.year}'),
-                    ),
-                  );
-                }
-              },
+                      if (pickedDate != null &&
+                          pickedDate != DateTime(1990, 1, 1)) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                                'Selected date: ${pickedDate.day}/${pickedDate.month}/${pickedDate.year}'),
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                  Divider(),
+                  ListTile(
+                    leading: Icon(Icons.email, size: screenWidth * 0.06),
+                    title: Text('Email',
+                        style: TextStyle(fontSize: screenWidth * 0.04)),
+                    subtitle: Text(email,
+                        style: TextStyle(fontSize: screenWidth * 0.03)),
+                    onTap: () {
+                      _showEmailDialog();
+                    },
+                  ),
+                  Divider(),
+                  ListTile(
+                    leading: Icon(Icons.phone, size: screenWidth * 0.06),
+                    title: Text('Phone Number',
+                        style: TextStyle(fontSize: screenWidth * 0.04)),
+                    subtitle: Text(phoneNumber,
+                        style: TextStyle(fontSize: screenWidth * 0.03)),
+                    onTap: () {
+                      _showPhoneNumberDialog();
+                    },
+                  ),
+                  // Add more account information details as needed
+                ],
+              ),
             ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.email),
-              title: Text('Email'),
-              subtitle: Text(email),
-              onTap: () {
-                _showEmailDialog();
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.phone),
-              title: Text('Phone Number'),
-              subtitle: Text(phoneNumber),
-              onTap: () {
-                _showPhoneNumberDialog();
-              },
-            ),
-            // Add more account information details as needed
           ],
         ),
       ),
@@ -149,7 +177,6 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
     );
   }
 
-  // Function to show dialog for location input
   _showLocationDialog() async {
     TextEditingController locationController =
         TextEditingController(text: location);
@@ -185,7 +212,6 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
     );
   }
 
-  // Function to show dialog for email input
   _showEmailDialog() async {
     TextEditingController emailController = TextEditingController(text: email);
 
@@ -220,7 +246,6 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
     );
   }
 
-  // Function to show dialog for phone number input
   _showPhoneNumberDialog() async {
     TextEditingController phoneNumberController =
         TextEditingController(text: phoneNumber);
@@ -256,10 +281,9 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
     );
   }
 
-  // Function to pick an image from the gallery
   _pickImage() async {
     final picker = ImagePicker();
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       setState(() {

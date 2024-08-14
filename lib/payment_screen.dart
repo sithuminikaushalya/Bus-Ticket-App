@@ -25,11 +25,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
     'Google Pay',
     'Other'
   ];
-  String selectedPaymentMethod = 'Credit Card'; // Default payment method
+  String selectedPaymentMethod = 'Credit Card';
 
   @override
   Widget build(BuildContext context) {
     double totalAmount = widget.numberOfTickets * widget.perTicketAmount;
+
+    // Get screen size
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: AppBar(
@@ -39,7 +43,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            height: 200,
+            height: screenHeight * 0.25, // Responsive height
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/payment.jpg'),
@@ -47,50 +51,53 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ),
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: screenHeight * 0.02), // Responsive spacing
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(screenWidth * 0.04), // Responsive padding
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Selected Seats: ${widget.selectedSeats.toString()}',
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(
+                      fontSize: screenWidth * 0.045), // Responsive font size
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: screenHeight * 0.01), // Responsive spacing
                 Text(
                   'Bus Number: ${widget.busNumber}',
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: screenWidth * 0.045),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: screenHeight * 0.01),
                 Text(
                   'Number of Tickets: ${widget.numberOfTickets}',
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: screenWidth * 0.045),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: screenHeight * 0.01),
                 Text(
                   'Per Ticket Amount: \$${widget.perTicketAmount.toStringAsFixed(2)}',
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: screenWidth * 0.045),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: screenHeight * 0.01),
                 Text(
                   'Total Amount: \$${totalAmount.toStringAsFixed(2)}',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: screenWidth * 0.05,
+                      fontWeight: FontWeight.bold),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: screenHeight * 0.02),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Select Payment Method:',
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: screenWidth * 0.045),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: screenHeight * 0.01),
                 DropdownButton<String>(
                   value: selectedPaymentMethod,
                   onChanged: (String? newValue) {
@@ -110,7 +117,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           ),
           Spacer(),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(screenWidth * 0.04),
             child: ElevatedButton(
               onPressed: () {
                 // Open the card details modal
@@ -120,10 +127,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 );
               },
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
                 child: Text(
                   'Next',
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: screenWidth * 0.045),
                 ),
               ),
             ),
@@ -166,42 +173,47 @@ class _CardDetailsModalState extends State<CardDetailsModal> {
 
   @override
   Widget build(BuildContext context) {
+    // Get screen size
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(screenWidth * 0.04), // Responsive padding
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               'Enter Card Details',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: screenWidth * 0.05, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: screenHeight * 0.02),
             TextField(
               controller: cardNumberController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(labelText: 'Card Number'),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: screenHeight * 0.01),
             TextField(
               controller: validUntilController,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(labelText: 'Valid Until (MM/YY)'),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: screenHeight * 0.01),
             TextField(
               controller: cardHolderController,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(labelText: 'Cardholder Name'),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: screenHeight * 0.01),
             TextField(
               controller: cvvController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(labelText: 'CVV'),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: screenHeight * 0.01),
             Row(
               children: [
                 Checkbox(
@@ -215,7 +227,7 @@ class _CardDetailsModalState extends State<CardDetailsModal> {
                 Text('Save Card Details'),
               ],
             ),
-            SizedBox(height: 20),
+            SizedBox(height: screenHeight * 0.02),
             ElevatedButton(
               onPressed: () {
                 // Implement logic to handle the submission of card details and saveCardDetails state
@@ -264,6 +276,10 @@ class _CardDetailsModalState extends State<CardDetailsModal> {
 class PaymentSuccessScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Get screen size
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Payment Success'),
@@ -273,7 +289,7 @@ class PaymentSuccessScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('Payment Successful!'),
-            SizedBox(height: 20),
+            SizedBox(height: screenHeight * 0.02),
             ElevatedButton(
               onPressed: () {
                 // Navigate back to the Payment Screen

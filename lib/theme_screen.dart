@@ -11,40 +11,58 @@ class _ThemeScreenState extends State<ThemeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Theme Settings'),
+        backgroundColor: Color.fromARGB(255, 230, 220, 235),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.symmetric(
+          horizontal: screenWidth * 0.05,
+          vertical: screenHeight * 0.02,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Select a Theme:',
               style: TextStyle(
-                fontSize: 18.0,
+                fontSize: screenWidth * 0.05,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 10.0),
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: themes.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(themes[index]),
-                  onTap: () {
-                    setState(() {
-                      selectedTheme = themes[index];
-                    });
-                    // Implement theme selection logic here
-                  },
-                  tileColor: selectedTheme == themes[index]
-                      ? Colors.blue.withOpacity(0.3) // Highlight selected theme
-                      : null,
-                );
-              },
+            SizedBox(height: screenHeight * 0.02),
+            Expanded(
+              child: ListView.builder(
+                itemCount: themes.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(
+                      themes[index],
+                      style: TextStyle(
+                        fontSize: screenWidth * 0.045,
+                      ),
+                    ),
+                    onTap: () {
+                      setState(() {
+                        selectedTheme = themes[index];
+                      });
+                      // Implement theme selection logic here
+                    },
+                    tileColor: selectedTheme == themes[index]
+                        ? Colors.blue
+                            .withOpacity(0.3) // Highlight selected theme
+                        : null,
+                    contentPadding: EdgeInsets.symmetric(
+                      vertical: screenHeight * 0.005,
+                      horizontal: screenWidth * 0.02,
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         ),

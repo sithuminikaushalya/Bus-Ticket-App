@@ -13,21 +13,24 @@ class _SecondScreenState extends State<SecondScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
-        title: null, // Set title to null to remove the text
+        title: null,
         centerTitle: true,
         backgroundColor: Color.fromARGB(255, 230, 220, 235),
         actions: [
           // Remove the IconButton widget
         ],
       ),
-      body: _buildBody(),
-      bottomNavigationBar: _buildCustomBottomNavigationBar(),
+      body: _buildBody(screenWidth, screenHeight),
+      bottomNavigationBar: _buildCustomBottomNavigationBar(screenWidth),
     );
   }
 
-  Widget _buildBody() {
+  Widget _buildBody(double screenWidth, double screenHeight) {
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -47,12 +50,12 @@ class _SecondScreenState extends State<SecondScreen> {
           Text(
             'Bus Ticket Booking',
             style: TextStyle(
-              fontSize: 24.0,
+              fontSize: screenWidth * 0.07,
               fontWeight: FontWeight.bold,
               color: Color(0xFF51259B),
             ),
           ),
-          SizedBox(height: 30.0),
+          SizedBox(height: screenHeight * 0.03),
           Expanded(
             child: Container(
               width: double.infinity,
@@ -64,7 +67,7 @@ class _SecondScreenState extends State<SecondScreen> {
               ),
             ),
           ),
-          SizedBox(height: 40.0),
+          SizedBox(height: screenHeight * 0.05),
           ElevatedButton(
             onPressed: () {
               print("Button pressed");
@@ -76,13 +79,16 @@ class _SecondScreenState extends State<SecondScreen> {
             style: ElevatedButton.styleFrom(
               backgroundColor: Color(0xFF51259B),
               textStyle: TextStyle(
-                fontSize: 18.0,
+                fontSize: screenWidth * 0.04,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
-              padding: EdgeInsets.symmetric(vertical: 13.0, horizontal: 30.0),
+              padding: EdgeInsets.symmetric(
+                vertical: screenHeight * 0.02,
+                horizontal: screenWidth * 0.1,
+              ),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0),
+                borderRadius: BorderRadius.circular(screenWidth * 0.1),
               ),
             ),
             child: Text(
@@ -92,22 +98,21 @@ class _SecondScreenState extends State<SecondScreen> {
               ),
             ),
           ),
-          SizedBox(height: 30.0),
+          SizedBox(height: screenHeight * 0.03),
         ],
       ),
     );
   }
 
-  Widget _buildCustomBottomNavigationBar() {
+  Widget _buildCustomBottomNavigationBar(double screenWidth) {
     return BottomNavigationBar(
       currentIndex: _currentIndex,
       selectedItemColor: Color(0xFF51259B),
       onTap: (index) {
         setState(() {
           _currentIndex = index;
-          // Handle navigation to different sections here
+
           if (index == 0) {
-            // Navigate to the second screen (self)
           } else if (index == 1) {
             Navigator.push(
               context,

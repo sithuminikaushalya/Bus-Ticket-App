@@ -31,6 +31,9 @@ class _DestinationScreenState extends State<DestinationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Select Destination'),
@@ -48,23 +51,29 @@ class _DestinationScreenState extends State<DestinationScreen> {
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.symmetric(
+              horizontal: screenWidth * 0.05,
+              vertical: screenHeight * 0.02,
+            ),
             child: Card(
               elevation: 0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(screenWidth * 0.04),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.asset(
-                      'assets/destination.jpg',
-                      width: 400.0, // Adjust the width as needed
-                      height: 250.0, // Adjust the height as needed
+                    Center(
+                      child: Image.asset(
+                        'assets/destination.jpg',
+                        width: screenWidth * 0.9,
+                        height: screenHeight * 0.3,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    SizedBox(height: 2.0),
+                    SizedBox(height: screenHeight * 0.02),
                     TextField(
                       controller: _fromController,
                       decoration: InputDecoration(
@@ -72,7 +81,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                         border: OutlineInputBorder(),
                       ),
                     ),
-                    SizedBox(height: 10.0),
+                    SizedBox(height: screenHeight * 0.01),
                     TextField(
                       controller: _toController,
                       decoration: InputDecoration(
@@ -80,110 +89,106 @@ class _DestinationScreenState extends State<DestinationScreen> {
                         border: OutlineInputBorder(),
                       ),
                     ),
-                    SizedBox(height: 10.0),
-                    Align(
-                      alignment: Alignment.centerLeft,
+                    SizedBox(height: screenHeight * 0.01),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Select Date:'),
+                        ElevatedButton(
+                          onPressed: () => _selectDate(context),
+                          child: Text('Pick Date'),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: screenHeight * 0.01),
+                    Visibility(
+                      visible: !_isDateSelected,
                       child: Row(
                         children: [
-                          Text('Select Date:'),
-                          SizedBox(width: 8.0),
-                          ElevatedButton(
-                            onPressed: () => _selectDate(context),
-                            child: Text('Pick Date'),
+                          SizedBox(width: screenWidth * 0.05),
+                          Text('Date: Not selected'),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                        height: _isDateSelected
+                            ? screenHeight * 0.01
+                            : screenHeight * 0.02),
+                    Visibility(
+                      visible: _isDateSelected,
+                      child: Row(
+                        children: [
+                          SizedBox(width: screenWidth * 0.05),
+                          Text(
+                            'Date: ${_selectedDate != null ? DateFormat('yyyy-MM-dd').format(_selectedDate!) : 'Not selected'}',
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 8.0),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Visibility(
-                        visible: !_isDateSelected,
-                        child: Row(
-                          children: [
-                            SizedBox(width: 32.0),
-                            Text(
-                              'Date: Not selected',
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: _isDateSelected ? 8.0 : 16.0),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Visibility(
-                        visible: _isDateSelected,
-                        child: Row(
-                          children: [
-                            SizedBox(width: 20.0),
-                            Text(
-                              'Date: ${_selectedDate != null ? DateFormat('yyyy-MM-dd').format(_selectedDate!) : 'Not selected'}',
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 16.0),
+                    SizedBox(height: screenHeight * 0.02),
                     Row(
                       children: [
                         Text('Passengers:'),
-                        SizedBox(width: 8.0),
-                        DropdownButton<int>(
-                          value: _passengerCount,
-                          onChanged: (value) {
-                            setState(() {
-                              _passengerCount = value!;
-                            });
-                          },
-                          items: List.generate(10, (index) => index + 1)
-                              .map((value) => DropdownMenuItem<int>(
-                                    value: value,
-                                    child: Text(value.toString()),
-                                  ))
-                              .toList(),
+                        SizedBox(width: screenWidth * 0.02),
+                        Expanded(
+                          child: DropdownButton<int>(
+                            value: _passengerCount,
+                            onChanged: (value) {
+                              setState(() {
+                                _passengerCount = value!;
+                              });
+                            },
+                            items: List.generate(10, (index) => index + 1)
+                                .map((value) => DropdownMenuItem<int>(
+                                      value: value,
+                                      child: Text(value.toString()),
+                                    ))
+                                .toList(),
+                          ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 16.0),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (_fromController.text.isNotEmpty &&
-                            _toController.text.isNotEmpty &&
-                            _selectedDate != null) {
-                          // Navigate to the bus list screen
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => BusListScreen(
-                                from: _fromController.text,
-                                to: _toController.text,
-                                selectedDate: _selectedDate!,
-                                passengerCount: _passengerCount,
+                    SizedBox(height: screenHeight * 0.02),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (_fromController.text.isNotEmpty &&
+                              _toController.text.isNotEmpty &&
+                              _selectedDate != null) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BusListScreen(
+                                  from: _fromController.text,
+                                  to: _toController.text,
+                                  selectedDate: _selectedDate!,
+                                  passengerCount: _passengerCount,
+                                ),
                               ),
-                            ),
-                          );
-                        } else {
-                          // Show an error message or handle validation
-                          print('Please fill in all fields.');
-                        }
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 14.0),
-                        child: Text(
-                          'Search',
-                          style: TextStyle(fontSize: 18.0, color: Colors.white),
+                            );
+                          } else {
+                            // Show an error message or handle validation
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Please fill in all fields.'),
+                              ),
+                            );
+                          }
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: screenHeight * 0.02),
+                          child: Text(
+                            'Search',
+                            style:
+                                TextStyle(fontSize: 18.0, color: Colors.white),
+                          ),
                         ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(
-                          255,
-                          57,
-                          19,
-                          63,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 57, 19, 63),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
                         ),
                       ),
                     ),

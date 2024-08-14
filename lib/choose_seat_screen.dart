@@ -14,6 +14,9 @@ class ChooseSeatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Choose Your Seat'),
@@ -22,56 +25,60 @@ class ChooseSeatScreen extends StatelessWidget {
         children: [
           Image.asset(
             'assets/seat.png',
-            height: 200,
+            width: screenWidth * 0.67,
+            height: screenHeight * 0.25,
             fit: BoxFit.cover,
           ),
           Expanded(
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 5, // Adjusted to 5 columns
-                crossAxisSpacing: 8.0, // Space between seats
-                mainAxisSpacing: 8.0, // Space between rows
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 5,
+                  crossAxisSpacing: screenWidth * 0.01,
+                  mainAxisSpacing: screenHeight * 0.01,
+                ),
+                itemCount: 60,
+                itemBuilder: (context, index) {
+                  if (index < 60) {
+                    return SeatWidget(
+                      seatNumber: index + 1,
+                      isSpaceBetweenPairs: index % 5 == 1 || index % 5 == 3,
+                      isSelected: selectedSeats.contains(index + 1),
+                      isSelectable: isSeatSelectable(),
+                      onTap: () => onSeatTap(context, index + 1),
+                    );
+                  } else {
+                    return SizedBox.shrink();
+                  }
+                },
               ),
-              itemCount: 60,
-              itemBuilder: (context, index) {
-                if (index < 60) {
-                  // Rows 1 to 12 with 5 seats and space for a middle seat
-                  return SeatWidget(
-                    seatNumber: index + 1,
-                    isSpaceBetweenPairs: index % 5 == 1 || index % 5 == 3,
-                    isSelected: selectedSeats.contains(index + 1),
-                    isSelectable: isSeatSelectable(),
-                    onTap: () => onSeatTap(context, index + 1),
-                  );
-                } else {
-                  return SizedBox.shrink();
-                }
-              },
             ),
           ),
-          // Spacer below the seat selection grid
-          SizedBox(height: 16.0),
-          // Book Now button
-          ElevatedButton(
-            onPressed: () {
-              // Navigate to payment screen with selected seats
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PaymentScreen(
-                    selectedSeats: selectedSeats,
-                    busNumber: busNumber,
-                    numberOfTickets: passengerCount,
-                    perTicketAmount:
-                        25.0, // Adjust this value based on your logic
+          SizedBox(height: screenHeight * 0.01),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PaymentScreen(
+                      selectedSeats: selectedSeats,
+                      busNumber: busNumber,
+                      numberOfTickets: passengerCount,
+                      perTicketAmount: 25.0,
+                    ),
                   ),
-                ),
-              );
-            },
-            child: Text('Book Now'),
+                );
+              },
+              child: Text('Book Now'),
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(double.infinity, 50),
+              ),
+            ),
           ),
-          // Spacer below the Book Now button
-          SizedBox(height: 16.0),
+          SizedBox(height: screenHeight * 0.02),
         ],
       ),
     );
@@ -79,7 +86,6 @@ class ChooseSeatScreen extends StatelessWidget {
 
   bool isSeatSelectable() {
     // Implement your logic here to determine if the seat is selectable based on passenger count
-    // For example, check if the length of selectedSeats is within the allowed range of passengers
     return selectedSeats.length <
         passengerCount; // Adjust the condition as needed
   }
@@ -141,10 +147,12 @@ class SeatWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return GestureDetector(
       onTap: isSelectable ? onTap : null,
       child: Container(
-        margin: EdgeInsets.all(8.0),
+        margin: EdgeInsets.all(screenWidth * 0.01),
         decoration: BoxDecoration(
           color: isSelected
               ? Color.fromARGB(255, 81, 11, 139)
@@ -156,7 +164,10 @@ class SeatWidget extends StatelessWidget {
         child: Center(
           child: Text(
             '$seatNumber',
-            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: screenWidth * 0.04,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),

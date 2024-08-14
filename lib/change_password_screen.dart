@@ -12,24 +12,31 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Change Password'),
       ),
       body: SingleChildScrollView(
-        // Wrap your Column with SingleChildScrollView
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.symmetric(
+            horizontal: screenWidth * 0.05,
+            vertical: screenHeight * 0.02,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Icon(
-                Icons.lock,
-                size: 80,
-                color: Colors.blue,
+              Center(
+                child: Icon(
+                  Icons.lock,
+                  size: screenWidth * 0.2,
+                  color: Colors.blue,
+                ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: screenHeight * 0.03),
               TextField(
                 controller: _oldPasswordController,
                 obscureText: true,
@@ -38,7 +45,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   prefixIcon: Icon(Icons.lock_open),
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: screenHeight * 0.02),
               TextField(
                 controller: _newPasswordController,
                 obscureText: true,
@@ -47,7 +54,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   prefixIcon: Icon(Icons.lock),
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: screenHeight * 0.02),
               TextField(
                 controller: _confirmPasswordController,
                 obscureText: true,
@@ -56,11 +63,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   prefixIcon: Icon(Icons.lock),
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: screenHeight * 0.03),
               ElevatedButton(
                 onPressed: () {
                   _changePassword();
                 },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 40),
+                ),
                 child: Text('Change Password'),
               ),
             ],

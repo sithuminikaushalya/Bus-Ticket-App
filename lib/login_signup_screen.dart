@@ -5,84 +5,93 @@ import 'sign_up_screen.dart';
 class LoginSignupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final screenWidth = screenSize.width;
+    final screenHeight = screenSize.height;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Welcome to JOURNEYEASE!'),
         centerTitle: true,
         backgroundColor: Color.fromARGB(255, 199, 186, 222),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "Find your journey with ease.",
-            style: TextStyle(
-              color: Colors.grey[700],
-              fontSize: 15,
-            ),
-          ),
-          SizedBox(height: 20.0),
-          Container(
-            height: MediaQuery.of(context).size.height /
-                1.8, // Adjust the height as needed
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/welcome.png"),
-                fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: screenHeight * 0.05),
+              Text(
+                "Find your journey with ease.",
+                style: TextStyle(
+                  color: Colors.grey[700],
+                  fontSize: screenWidth * 0.05,
+                ),
               ),
-            ),
-          ),
-          SizedBox(height: 20.0),
-          MaterialButton(
-            minWidth: 150, // Set a specific width for the button
-            height: 50,
-            onPressed: () {
-              // Navigate to login screen
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LoginScreen()),
-              );
-            },
-            // defining the shape
-            shape: RoundedRectangleBorder(
-              side: BorderSide(
-                color: Colors.black,
+              SizedBox(height: screenHeight * 0.01),
+              Center(
+                child: Container(
+                  height: screenHeight * 0.5,
+                  width: screenWidth * 0.9,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/welcome.png"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
               ),
-              borderRadius: BorderRadius.circular(50),
-            ),
-            child: Text(
-              "Login",
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 18,
+              SizedBox(height: screenHeight * 0.03),
+              MaterialButton(
+                minWidth: screenWidth * 0.5,
+                height: screenHeight * 0.06,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: Colors.black,
+                  ),
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Text(
+                  "Login",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: screenWidth * 0.045,
+                  ),
+                ),
               ),
-            ),
-          ),
-          SizedBox(height: 20),
-          MaterialButton(
-            minWidth: 150, // Set a specific width for the button
-            height: 50,
-            onPressed: () {
-              // Navigate to sign up screen
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SignUpScreen()),
-              );
-            },
-            color: Color(0xFF51259B),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50),
-            ),
-            child: Text(
-              "Sign up",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: 18,
+              SizedBox(height: screenHeight * 0.02),
+              MaterialButton(
+                minWidth: screenWidth * 0.5,
+                height: screenHeight * 0.06,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignUpScreen()),
+                  );
+                },
+                color: Color(0xFF51259B),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Text(
+                  "Sign up",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: screenWidth * 0.045,
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
