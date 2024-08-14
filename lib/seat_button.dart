@@ -16,7 +16,7 @@ class SeatButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onSeatSelected,
       style: ElevatedButton.styleFrom(
-        primary: isSelected ? Colors.blue : Colors.white,
+        backgroundColor: isSelected ? Colors.blue : Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),

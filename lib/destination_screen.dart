@@ -176,7 +176,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                         ),
                       ),
                       style: ElevatedButton.styleFrom(
-                        primary: Color.fromARGB(
+                        backgroundColor: Color.fromARGB(
                           255,
                           57,
                           19,

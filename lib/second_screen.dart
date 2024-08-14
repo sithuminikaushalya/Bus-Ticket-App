@@ -74,7 +74,7 @@ class _SecondScreenState extends State<SecondScreen> {
               );
             },
             style: ElevatedButton.styleFrom(
-              primary: Color(0xFF51259B),
+              backgroundColor: Color(0xFF51259B),
               textStyle: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,

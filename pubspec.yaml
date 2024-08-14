@@ -12,9 +12,7 @@ dependencies:
   # provider: ^6.1.6
   image_picker: ^0.8.3+2
   google_sign_in: ^5.2.1
-  # ... other dependencies
 
-# ... other configurations
 
 flutter:
   uses-material-design: true

@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Bus Ticket App',
       home: FirstScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -73,7 +74,7 @@ class FirstScreen extends StatelessWidget {
                 );
               },
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFF51259B),
+                backgroundColor: Color(0xFF51259B),
                 textStyle: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,

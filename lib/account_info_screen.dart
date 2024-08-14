@@ -8,11 +8,11 @@ class AccountInfoScreen extends StatefulWidget {
 }
 
 class _AccountInfoScreenState extends State<AccountInfoScreen> {
-  String phoneNumber = '+1 123 456 7890'; // Initial phone number
-  String location = '123 Main Street, Cityville'; // Initial location
-  String name = 'John Doe'; // Initial name
-  String email = 'john.doe@email.com'; // Initial email
-  File? _image; // Variable to store the selected image
+  String phoneNumber = '+1 123 456 7890';
+  String location = '123 Main Street, Cityville';
+  String name = 'John Doe';
+  String email = 'john.doe@email.com';
+  File? _image;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
       appBar: AppBar(
         title: Text('Account Information'),
       ),
-      resizeToAvoidBottomInset: false, // Add this line
+      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -28,7 +28,7 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
           children: [
             GestureDetector(
               onTap: () {
-                _pickImage(); // Call the function to pick an image
+                _pickImage();
               },
               child: CircleAvatar(
                 radius: 60,
@@ -115,7 +115,6 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
     );
   }
 
-  // Function to show dialog for name input
   _showNameDialog() async {
     TextEditingController nameController = TextEditingController(text: name);
 

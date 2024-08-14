@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "520389096010",
+    "project_id": "journeyease-118d7",
+    "storage_bucket": "journeyease-118d7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520389096010:android:22d1444fcee89359aeacb3",
+        "android_client_info": {
+          "package_name": "com.example.bus_ticket_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCwQzBtY8SjsHpPNwOC-WucZO9TceOYew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
