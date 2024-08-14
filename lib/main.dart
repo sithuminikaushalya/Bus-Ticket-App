@@ -78,16 +78,21 @@ class FirstScreen extends StatelessWidget {
                 textStyle: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white, // Set text color to white
+                  color: Colors.white,
                 ),
                 padding: EdgeInsets.symmetric(vertical: 13.0, horizontal: 30.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
                 ),
               ),
-              child: Text("Get Started"),
+              child: Text(
+                "Get Started",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
             ),
-            SizedBox(height: 60.0), // Add a gap below the button
+            SizedBox(height: 60.0),
           ],
         ),
       ),

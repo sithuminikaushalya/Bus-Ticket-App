@@ -52,7 +52,7 @@ class _SecondScreenState extends State<SecondScreen> {
               color: Color(0xFF51259B),
             ),
           ),
-          SizedBox(height: 30.0), // Add gap between heading and image
+          SizedBox(height: 30.0),
           Expanded(
             child: Container(
               width: double.infinity,
@@ -64,7 +64,7 @@ class _SecondScreenState extends State<SecondScreen> {
               ),
             ),
           ),
-          SizedBox(height: 40.0), // Add gap between image and button
+          SizedBox(height: 40.0),
           ElevatedButton(
             onPressed: () {
               print("Button pressed");
@@ -85,9 +85,14 @@ class _SecondScreenState extends State<SecondScreen> {
                 borderRadius: BorderRadius.circular(30.0),
               ),
             ),
-            child: Text("Book Ticket"),
+            child: Text(
+              "Book Ticket",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
           ),
-          SizedBox(height: 30.0), // Add gap between button and bottom bar
+          SizedBox(height: 30.0),
         ],
       ),
     );
