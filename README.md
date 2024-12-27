@@ -1,18 +1,45 @@
-# bus_ticket_app
+# spotfinder
 
-Mobile App for Bus tracking and Ticket and Seat booking
+## 📽️ App Recording
 
-A new Flutter project.
+<video src="https://github.com/user-attachments/assets/7aa54f92-a926-4b93-bb62-963906ed90b0" controls width="800"></video>
 
-## Getting Started
+# Flutter Firebase App
 
-This project is a starting point for a Flutter application.
+A Flutter mobile application that integrates Firebase for user authentication and role-based access control. This app includes features for **admin** and **normal user** roles, with login, signup, and forgot password functionality.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 🛠 Features
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. **Authentication**:
+   - Login, Signup, and Forgot Password.
+   - Role-based navigation (Admin/User).
+2. **Firebase Integration**:
+   - Firebase Authentication.
+   - Firestore for user data storage.
+3. **Admin/User Interfaces**:
+   - Separate UI and logic for admin and user roles.
+
+## 🔧 Setup Instructions
+
+### Prerequisites
+1. Install Flutter: [Flutter Installation Guide](https://docs.flutter.dev/get-started/install).
+2. Set up a Firebase project: [Firebase Console](https://console.firebase.google.com/).
+
+### Steps
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd <project-directory>
+
+2. Install dependencies:
+   ```bash
+   flutter pub get
+
+3. Configure Firebase by adding your google-services.json (for Android) and GoogleService-Info.plist (for iOS) files.
+   
+5. Run the application:
+   ```bash
+   flutter run
+
+
