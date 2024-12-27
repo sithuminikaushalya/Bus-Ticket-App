@@ -1,4 +1,4 @@
-# spotfinder
+# Bus Ticket App
 
 ## 📽️ App Recording
 
@@ -6,25 +6,34 @@
 
 # Flutter Firebase App
 
-A Flutter mobile application that integrates Firebase for user authentication and role-based access control. This app includes features for **admin** and **normal user** roles, with login, signup, and forgot password functionality.
-
+A Flutter mobile application for managing bus ticket bookings with Firebase integration. This app includes features for **admin** and **passenger** roles, with login, signup, and ticket management functionality.
 
 ## 🛠 Features
 
 1. **Authentication**:
    - Login, Signup, and Forgot Password.
-   - Role-based navigation (Admin/User).
+   - Role-based navigation (Admin/Passenger).
 2. **Firebase Integration**:
    - Firebase Authentication.
-   - Firestore for user data storage.
-3. **Admin/User Interfaces**:
-   - Separate UI and logic for admin and user roles.
+   - Firestore for storing user and ticket data.
+3. **Admin/Passenger Interfaces**:
+   - Separate UI and logic for admin and passenger roles.
+4. **Ticket Management**:
+   - Book, cancel, and view tickets.
+   - Admin can manage schedules and bookings.
 
 ## 🔧 Setup Instructions
 
 ### Prerequisites
 1. Install Flutter: [Flutter Installation Guide](https://docs.flutter.dev/get-started/install).
 2. Set up a Firebase project: [Firebase Console](https://console.firebase.google.com/).
+
+### Steps
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd <project-directory>
+
 
 ### Steps
 1. Clone the repository:
